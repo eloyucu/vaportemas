@@ -1,0 +1,36 @@
+nav(class="navbar navbar-default navbar-static-top" id="navbar-magellan" role="navigation")
+	div.container
+		div.navbar-header
+			button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+			a(class="navbar-brand" href="#") 
+				span(style="color:red;") V
+				span(style="color:green") a
+				span(style="color:yellow") P
+				span(style="color:blue") o
+				span(style="color:crimson") R
+				span(style="color:brown;") tEmAS
+		div#bs-example-navbar-collapse-1.collapse.navbar-collapse
+			ul.nav.navbar-nav
+				li: a(href="/close.html") Cerrar Sesion
+				li.dropdown 
+					a(href="#" class="dropdown-toggle" data-toggle="dropdown") Estudiantes
+						span.caret
+					ul(class="dropdown-menu" role="menu")
+						li: a(href="/epigraph.html") Ver Epígrafes
+						li: a(href="#") Ver Exámenes
+						li: a(href="#") Ver Noticias
+			form(class="navbar-form navbar-left" role="search")
+				div.form-group: input(type="text" class="form-control" placeholder="Search")
+				button(type="button" class="btn btn-default") Submit
+			ul.nav.navbar-nav.navbar-left
+				li.dropdown
+					a(href="#" class="dropdown-toggle" data-toggle="dropdown") Acciones
+						span.caret
+					ul(class="dropdown-menu" role="menu")
+						li: a(href="/make_epigraph.html") Generar epígrafes
+						li: a(href="#") Subir Exámenes
+						li: a(href="#") Generar Noticias

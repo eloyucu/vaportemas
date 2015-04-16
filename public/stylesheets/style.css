@@ -1,0 +1,71 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#eee;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.log-inputs
+{
+	height:30px;
+}
+.log-inputs:first-child
+{
+	border-radius: 4px 4px 0px 0px;
+	-moz-border-radius: 4px 4px 0px 0px;
+	-webkit-border-radius: 4px 4px 0px 0px;
+}
+.log-inputs:last-child
+{
+	border-radius: 0px 0px 4px 4px;
+	-moz-border-radius: 0px 0px 4px 4px;
+	-webkit-border-radius: 0px 0px 4px 4px;
+}
+.make-appendix-form, .subjects-list-container, .epigraph-content
+{
+	padding: 30px 20px 30px 50px;
+	background-color:#fff;
+	-webkit-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.75);
+	border: 1px solid #eee;
+}
+.subjects-container{padding:0;padding-bottom:10px;}
+@media screen and (min-width: 992px)
+{
+	.subjects-container{padding:0;padding-right:10px;}
+}
+.subject-item-list
+{
+	cursor:pointer;
+	margin-bottom:4px;
+}
+.epigraph-subject-row
+{
+	margin-left:0px;
+	margin-right:0px;
+	margin-bottom:10px;
+}
+.list-inline{color:red;}
+.list-unstyled{color:blue;}
+.epigraph-subject{margin:20px 0px 20px 0px;}
+#reset-add-epigraph{margin-left:10px;}
+#epigraph-content{padding-right: 100px;}
+.epigraph-content-from-data
+{
+	margin-top: 7px;
+	margin-bottom: 9px;
+	padding-bottom: 10px;
+	border-bottom: 1px #eee solid;
+}
+.epigraph-name
+{
+	margin-top:10px;
+}
+.epigraph-button
+{
+	text-align: right;
+}

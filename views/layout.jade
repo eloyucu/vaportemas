@@ -1,0 +1,15 @@
+doctype html
+html
+	head
+		title Confimar Epígrafes
+		link(rel='stylesheet' type="text/css" href='/stylesheets/bootstrap.min.css')
+		link(rel='stylesheet' type="text/css" href='/stylesheets/bootstrap-theme.min.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(type='text/javascript', src='/javascripts/jquery-2.1.1.min.js')
+		script(type='text/javascript', src='/javascripts/bootstrap.min.js')
+		script(type='text/javascript', src='/javascripts/functions.js')
+		block scripts
+	body
+		if user
+			include ./navtopbar
+		block content

@@ -1,0 +1,57 @@
+extends layout
+block scripts
+	link(rel='stylesheet' type="text/css" href='/stylesheets/bootstrap-select.min.css')
+	script(type='text/javascript', src='/javascripts/bootstrap-select.min.js')
+block content
+	div.row
+		form.make-appendix-form.col-sm-8.col-sm-offset-2(role="form" action="/make_epigraph.html" method="POST")
+			select#subject-select.selectpicker(name="subject")
+				optgroup(label="1ºCurso")
+					option Lógica y Est. Disc.
+					option Fun. Matemáticos
+					option Fun. Sis. Digitales
+					option Fun. Físicos
+					option Fun. Programación
+					option Est. Programación Est. Datos
+					option Ing. Computadores I
+					option Estadística
+					option Autómatas, Gr. y Lenguajes
+					option Prog. Orientada a Objetos
+				optgroup(label="2ºCurso")
+					option Redes y Comunicaciones
+					option Prog. Est. Datos Avanzadas
+					option Ing. Computadores II
+					option Gestión Empresas Inf.
+					option Sistemas Operativos
+					option Diseño Aplicaciones O.O.
+					option Leng. Programación Procesadores
+					option Fun. Inteligencia Artificial
+					option Int. Ingeniería Software
+					option Bases de Datos 
+				optgroup(label="3ºCurso")
+					option Ampliación Sis. Operativos
+					option Aplicaciones Distribuidas
+					option Calidad del Software
+					option Gestión de Bases de Datos
+					option Procesamiento Paralelo 
+					option Sistemas de Información de las Organizaciones
+					option Procesos y Herramientas de Gestión de la Seguridad de Redes
+					option Consultoría y Auditoría
+					option Tecnologías WEB
+				optgroup(label="4ºCurso")
+					option Ing. Gestión del Conocimiento
+					option Ing. Factores Humanos
+					option Tecnologías Integrativas
+					option Ética y Legislación
+					option Gestión de Procesos
+			div.epigraph-subject(data-type="clonable")
+				div.row#epigraph-row-container
+				div.row
+					div.col-lg-6
+						div.input-group
+							input#add-epigraph-input.form-control(type="text" name="epigraph[]" placeholder="Nuevo epígrafe")
+							span.input-group-btn
+								button#add-epigraph-button.btn.btn-success(type="button")
+									span.glyphicon.glyphicon-plus
+			button#send-epigraphs-button.btn.btn-success(type="submit") Send
+			button#reset-add-epigraph.btn.btn-warning(type="button") Reset

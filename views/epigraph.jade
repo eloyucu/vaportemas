@@ -1,0 +1,16 @@
+extends layout
+block scripts
+block content
+	div.row.epigraph-subject-row
+		div.subjects-container.col-md-4
+			div.subjects-list-container
+				h3 Elige la asignatura
+				ul.list-unstyled
+					for subject in subjects
+						li.subject-item-list= subject
+					else
+						li Lo sentimos no hay asignaturas que mostrar.
+		div.col-md-8.epigraph-content
+			h2 Seleccione los epígrafes que está dispuesto a realizar.
+			div#epigraph-content
+	div.hide#epigraph-user(data-user_id="#{user._id}" data-user_name="#{user.name}")
