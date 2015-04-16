@@ -88,29 +88,29 @@ function getTheEpigraphListUserAdjudicate(data)
 {
 	var html = '<div class="row">'+
 					'<div class="epigraph-content-from-data col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">'+
-						'<span class="col-xs-7 epigraph-name">' + data.content + '</span>';
+						'<span class="col-xs-10 epigraph-name">' + data.content + '</span>';
 	
 	if(data.finish)
-		html +=			'<span class="col-xs-5 epigraph-button">'+
+		html +=			'<span class="col-xs-2 epigraph-button">'+
 							'<button data-epigrah_id="' + data._id + '" data-epigraph-finish="true" class="btn btn-success" type="button" data-toggle="tooltip" data-placement="right" title="Tarea finalizada por el usuario ' + data.user_id.name + '">'+
 								'<span class="glyphicon glyphicon-ok-sign"></span>'+
 							'</button>'+
 						'</span>';
 	
 	else if(data.user_id && data.user_id.name==jQuery('#epigraph-user').attr('data-user_name'))
-		html +=		 	'<span class="col-xs-5 epigraph-button">'+
+		html +=		 	'<span class="col-xs-2 epigraph-button">'+
 							'<button data-change-user-epigraph-button="true" data-epigrah_id="' + data._id + '" data-epigraph-finish="true" class="btn btn-info" type="button" data-toggle="tooltip" data-placement="right" title="Te has asignado esta tarea.">'+
 								'<span data-span-epigrah_id="' + data._id + '" class="glyphicon glyphicon-pushpin"></span>'+
 							'</button>'+
 						'</span>';
 	else if(data.user_id) 
-		html +=			'<span class="col-xs-5 epigraph-button">'+
+		html +=			'<span class="col-xs-2 epigraph-button">'+
 							'<button class="btn btn-danger" type="button"data-toggle="tooltip" data-placement="right" title="Tarea en curso por el usuario ' + data.user_id.name + '">'+
 								'<span class="glyphicon glyphicon-transfer"></span>'+
 							'</button>'+
 						'</span>';
 	else
-		html +=		 	'<span class="col-xs-5 epigraph-button">'+
+		html +=		 	'<span class="col-xs-2 epigraph-button">'+
 							'<button data-change-user-epigraph-button="true" data-epigrah_id="' + data._id + '" data-epigraph-finish="false" class="btn btn-warning" type="button" data-toggle="tooltip" data-placement="right" title="Esta tarea está sin asignar">'+
 								'<span data-span-epigrah_id="' + data._id + '" class="glyphicon glyphicon-tags"></span>'+
 							'</button>'+
