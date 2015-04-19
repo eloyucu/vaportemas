@@ -3,8 +3,11 @@ block scripts
 	link(rel='stylesheet' type="text/css" href='/stylesheets/bootstrap-select.min.css')
 	script(type='text/javascript', src='/javascripts/bootstrap-select.min.js')
 block content
+	h1 Hacer epígrafes.
+	h4 Rellene los temas de trabajo que deberán de ser tratados y asignados descentralizada y libremente por los compañeros.
+	p Seleccione la asignatura para la que quiera incluir los epígrafes, y después rellene la lista de ellos. Durante este proceos deberá tener cuidado con ciertos aspectos, así que, por favor lea atentamente las instrucciones que aparecerán la pasar el cursor por encima de cada botón.
 	div.row
-		form.make-appendix-form.col-sm-8.col-sm-offset-2(role="form" action="/make_epigraph.html" method="POST")
+		form#form-to-epigraphs.make-appendix-form.col-sm-8.col-sm-offset-2(role="form" action="/make_epigraphs.html" method="POST")
 			select#subject-select.selectpicker(name="subject")
 				optgroup(label="1ºCurso")
 					option Lógica y Est. Disc.
@@ -53,5 +56,8 @@ block content
 							span.input-group-btn
 								button#add-epigraph-button.btn.btn-success(type="button")
 									span.glyphicon.glyphicon-plus
-			button#send-epigraphs-button.btn.btn-success(type="submit") Send
-			button#reset-add-epigraph.btn.btn-warning(type="button") Reset
+			input#deallocate.hidden(type="text" name="deallocate")
+			button#deallocate-epigraphs-button.btn.btn-danger.btn-right-margin(type="submit" data-toggle="tooltip" data-placement="top" title="No tiene en cuenta la lista. Puedes borrar elementos o añadir nuevos, pero si aprietas este botón lo único que hará será eliminar las asignaciones de los epígrafes de la asignatura indicada, haciendo caso omiso de las modificaciones en la lista.") Deasignar
+			button#send-epigraphs-button.btn.btn-warning.btn-right-margin(type="submit" data-submit-make="true" data-deallocate="true" data-toggle="tooltip" data-placement="top" title="Los elementos de la lista serán enviados al servidor y las modificaciones serán guardadas. Pero, además, se eliminarán las asignaciones anteriores de los epígrafes") Modificar
+			button#deallocate-modify-epigraphs-button.btn.btn-success.btn-right-margin(type="submit" data-submit-make="true" data-deallocate="false" data-toggle="tooltip" data-placement="top" title="Envía la lista que está siendo modificanda y si alguno de los epígrafes de esta lista ya existiera en la base de datos, respetaría las asignaciones. Por otra parte, si hay elementos nuevos serán almacenados sin asignar, y los elementos eliminados de la lista, también serán eliminados de la base de datos.") Desasignar modificados
+			button#reset-add-epigraph.btn.btn-info.btn-right-margin(type="button" data-toggle="tooltip" data-placement="top" title="Si modificas las lista, pero después quieres volver al estado original de ésta y hacer como que nada de eso hubiese ocurrido, ésta es tu opción.") Resetear

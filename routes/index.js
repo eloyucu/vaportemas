@@ -26,7 +26,7 @@ router.get('/epigraph.html', function(req, res)
 		});
 	}	
 });
-router.get('/make_epigraph.html', function(req, res)
+router.get('/make_epigraphs.html', function(req, res)
 {
 	if(req.session.user/*&& req.session.user.rol!="finalUser"*/) res.render('make_appendix', {user:req.session.user});
 	else res.redirect('/');
@@ -85,22 +85,64 @@ router.post('/epigraph.html', function(req, res)
 		});
 	}	
 });
-router.post('/make_epigraph.html', function(req, res)
+router.post('/make_epigraphs.html', function(req, res)
 {
 	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
 	{
-		epigraphDB.remove({subject:req.body.subject}, function(err, doc)
+		if(req.body.deallocate=="true")
 		{
-			for(var i in req.body.epigraph)
+			//console.log("index.js-> make_epigraphs-> inside if deallocate");
+			epigraphDB.remove({subject:req.body.subject}, function(err, doc)
 			{
-				var object = new epigraphDB({subject:req.body.subject, content:req.body.epigraph[i]});
-				object.save();
-			}
-			setTimeout(function()
+				for(var i in req.body.epigraph)
+				{
+					var object = new epigraphDB({subject:req.body.subject, content:req.body.epigraph[i]});
+					object.save();
+				}
+			});
+		}
+		else
+		{
+			epigraphDB.find({subject:req.body.subject}, function(err, doc)
 			{
-				res.redirect('/epigraph.html');
-			}, 300);
+				var aux = doc.filter(function(item) {
+					for(var i in req.body.epigraph)
+						if(req.body.epigraph[i] == item.content) return false;
+							return true;
+				});
+				for(var i in aux)
+					epigraphDB.find({id:aux[i]._id}).remove().exec();
+					
+				aux = req.body.epigraph.filter(function(item) 
+				{
+					for(var i in doc)
+						if(doc[i].content == item) return false;
+							return true;
+				});
+				for(var i in aux)
+					(new epigraphDB({subject:req.body.subject, content:aux[i]})).save();
+			});
+		}		
+		setTimeout(function()
+		{
+			res.redirect('/epigraph.html');
+		}, 300);
+	}
+	else res.redirect('/');
+});
+
+router.post('/deallocate.html', function(req, res)
+{
+	console.log('index-> deallocate-> subject: ' +  req.body.subject);
+	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
+	{
+		console.log('index-> deallocate-> inside if');
+		epigraphDB.find({subject:req.body.subject},function(err, doc)
+		{
+			for(var i in doc)
+				epigraphDB.update({_id:doc[i]._id},{user_id:undefined}, function(err, doc){});
 		});
+		res.redirect('/make_epigraphs.html');
 	}
 	else res.redirect('/');
 });
@@ -134,4 +176,12 @@ function encrypt(user, pass)
 	// usamos el metodo CreateHmac y le pasamos el parametro user y actualizamos el hash con la password
 	var hmac = crypto.createHmac('sha1', user).update(pass).digest('hex');
 	return hmac;
+}
+function notIn(array) {
+	return function(item) {
+		//return array.indexOf(item) < 0;
+		for(var i in array)
+			if(array[i] == item.content) return false;//if(array[i]._id == item._id) return false;
+		return true;
+	};
 }

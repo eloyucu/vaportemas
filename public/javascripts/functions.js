@@ -1,6 +1,7 @@
 
 jQuery(document).ready(function()
 {
+	jQuery('[data-toggle="tooltip"]').tooltip();
 	jQuery('#inputCheck').val('sign');
 	jQuery('#chk1').click(function()
 	{
@@ -70,10 +71,25 @@ jQuery(document).ready(function()
 	});
 	jQuery('#subject-select').on('change', function()
 	{
+		jQuery('#epigraph-row-container').html('');
 		jQuery.post('/take_epigraph.html', {data:jQuery(this).val()}, function(data, status){
 			for(var i in data)jQuery('#epigraph-row-container').append(getTheepigraphListElementHtml(data[i].content));
 		});
 	});
+	jQuery('[data-submit-make="true"]').click(function()
+	{
+		jQuery('#deallocate').val(jQuery(this).attr('data-deallocate'));
+		alert(jQuery('#deallocate').val());
+	});
+	jQuery('#deallocate-epigraphs-button').click(function()
+	{
+		jQuery('#form-to-epigraphs').attr('action', '/deallocate.html');
+	});
+	/*jQuery('#deallocate-epigraphs-button').click(function()
+	{
+		console.log("select: " + jQuery('#subject-select').val());
+		//jQuery.post('/take_epigraph.html',data:{subject:}
+	});*/
 	jQuery(window).on("resize",function()
 	{
 		if(jQuery(window).width()<992)
@@ -87,7 +103,7 @@ jQuery(document).ready(function()
 function getTheEpigraphListUserAdjudicate(data)
 {
 	var html = '<div class="row">'+
-					'<div class="epigraph-content-from-data col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">'+
+					'<div class="epigraph-content-from-data col-xs-12">'+
 						'<span class="col-xs-10 epigraph-name">' + data.content + '</span>';
 	
 	if(data.finish)
