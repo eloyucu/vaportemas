@@ -151,12 +151,12 @@ router.post('/take_epigraph.html', function(req, res)
 	else
 	{
 		if(req.body.data.populate)
-			epigraphDB.find({subject:req.body.data.subject}).populate('user_id').sort({_id: -1}).exec(function(err,doc)
+			epigraphDB.find({subject:req.body.data.subject}).populate('user_id').sort({_id: 1}).exec(function(err,doc)
 			{
 				res.send(doc)
 			});
 		else
-			epigraphDB.find({subject:req.body.data}).sort({_id: -1}).exec( function(err, doc)
+			epigraphDB.find({subject:req.body.data}).sort({_id: 1}).exec( function(err, doc)
 			{
 				res.send(doc)
 			});
