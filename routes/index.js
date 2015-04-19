@@ -85,58 +85,56 @@ router.post('/epigraph.html', function(req, res)
 		});
 	}	
 });
-router.post('/make_epigraphs.html', function(req, res)
+router.post('/remake_epigraphs.html', function(req, res)
 {
 	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
 	{
-		if(req.body.deallocate=="true")
+		//console.log("index.js-> make_epigraphs-> inside if deallocate");
+		epigraphDB.remove({subject:req.body.subject}, function(err, doc)
 		{
-			//console.log("index.js-> make_epigraphs-> inside if deallocate");
-			epigraphDB.remove({subject:req.body.subject}, function(err, doc)
+			for(var i in req.body.epigraph)
 			{
+				var object = new epigraphDB({subject:req.body.subject, content:req.body.epigraph[i]});
+				object.save();
+			}
+		});
+		res.redirect('/epigraph.html');
+	}
+	else res.redirect('/');
+});
+
+router.post('/remake_epigraphs_not_deallocate.html', function(req, res)
+{
+	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
+	{
+		epigraphDB.find({subject:req.body.subject}, function(err, doc)
+		{
+			var aux = doc.filter(function(item) {
 				for(var i in req.body.epigraph)
-				{
-					var object = new epigraphDB({subject:req.body.subject, content:req.body.epigraph[i]});
-					object.save();
-				}
+					if(req.body.epigraph[i] == item.content) return false;
+						return true;
 			});
-		}
-		else
-		{
-			epigraphDB.find({subject:req.body.subject}, function(err, doc)
+			for(var i in aux)
+				epigraphDB.find({id:aux[i]._id}).remove().exec();
+				
+			aux = req.body.epigraph.filter(function(item) 
 			{
-				var aux = doc.filter(function(item) {
-					for(var i in req.body.epigraph)
-						if(req.body.epigraph[i] == item.content) return false;
-							return true;
-				});
-				for(var i in aux)
-					epigraphDB.find({id:aux[i]._id}).remove().exec();
-					
-				aux = req.body.epigraph.filter(function(item) 
-				{
-					for(var i in doc)
-						if(doc[i].content == item) return false;
-							return true;
-				});
-				for(var i in aux)
-					(new epigraphDB({subject:req.body.subject, content:aux[i]})).save();
+				for(var i in doc)
+					if(doc[i].content == item) return false;
+						return true;
 			});
-		}		
-		setTimeout(function()
-		{
-			res.redirect('/epigraph.html');
-		}, 300);
+			for(var i in aux)
+				(new epigraphDB({subject:req.body.subject, content:aux[i]})).save();
+		});
+		res.redirect('/epigraph.html');
 	}
 	else res.redirect('/');
 });
 
 router.post('/deallocate.html', function(req, res)
 {
-	console.log('index-> deallocate-> subject: ' +  req.body.subject);
 	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
 	{
-		console.log('index-> deallocate-> inside if');
 		epigraphDB.find({subject:req.body.subject},function(err, doc)
 		{
 			for(var i in doc)
@@ -153,12 +151,12 @@ router.post('/take_epigraph.html', function(req, res)
 	else
 	{
 		if(req.body.data.populate)
-			epigraphDB.find({subject:req.body.data.subject}).populate('user_id').exec(function(err,doc)
+			epigraphDB.find({subject:req.body.data.subject}).populate('user_id').sort({_id: -1}).exec(function(err,doc)
 			{
 				res.send(doc)
 			});
 		else
-			epigraphDB.find({subject:req.body.data}, function(err, doc)
+			epigraphDB.find({subject:req.body.data}).sort({_id: -1}).exec( function(err, doc)
 			{
 				res.send(doc)
 			});

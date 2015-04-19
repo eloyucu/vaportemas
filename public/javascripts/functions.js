@@ -78,18 +78,12 @@ jQuery(document).ready(function()
 	});
 	jQuery('[data-submit-make="true"]').click(function()
 	{
-		jQuery('#deallocate').val(jQuery(this).attr('data-deallocate'));
-		alert(jQuery('#deallocate').val());
+		jQuery('#form-to-epigraphs').attr('action', jQuery(this).attr('data-url-form'));
 	});
 	jQuery('#deallocate-epigraphs-button').click(function()
 	{
-		jQuery('#form-to-epigraphs').attr('action', '/deallocate.html');
+		
 	});
-	/*jQuery('#deallocate-epigraphs-button').click(function()
-	{
-		console.log("select: " + jQuery('#subject-select').val());
-		//jQuery.post('/take_epigraph.html',data:{subject:}
-	});*/
 	jQuery(window).on("resize",function()
 	{
 		if(jQuery(window).width()<992)
