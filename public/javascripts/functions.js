@@ -19,17 +19,14 @@ jQuery(document).ready(function()
 	});
 	jQuery('body').delegate('[data-change-user-epigraph-button="true"]', 'click', function()
 	{
-		
 		var data 			= {};
 		data.epigraph_id	= jQuery(this).attr('data-epigrah_id');
 		data.finish			= jQuery(this).attr('data-epigraph-finish');
-		
 		jQuery.post('/epigraph.html', {data:data}, function(results, status)
 		{
-			console.log(status);
 			if(status=="success")
 			{
-				if(results.finish)
+				if(data.finish=="true")
 				{
 					jQuery('[data-span-epigrah_id="'+data.epigraph_id+'"]').removeClass('glyphicon-pushpin').addClass('glyphicon-ok-sign');
 					jQuery('[data-epigrah_id="'+data.epigraph_id+'"]').removeClass('btn-info').addClass('btn-success').attr('title','Acabas de finalizar esta tarea');
@@ -38,6 +35,7 @@ jQuery(document).ready(function()
 				{
 					jQuery('[data-span-epigrah_id="'+data.epigraph_id+'"]').removeClass('glyphicon-tags').addClass('glyphicon-pushpin');
 					jQuery('[data-epigrah_id="'+data.epigraph_id+'"]').removeClass('btn-warning').addClass('btn-info').attr('title','Acabas de asignarte esta tarea.');
+					jQuery('[data-epigrah_id="'+data.epigraph_id+'"]').attr('data-epigraph-finish', "true");
 				}
 				jQuery('[data-epigrah_id="'+data.epigraph_id+'"]').tooltip('destroy');
 				setTimeout(function()
@@ -45,7 +43,6 @@ jQuery(document).ready(function()
 					jQuery('[data-epigrah_id="'+data.epigraph_id+'"]').tooltip();
 				}, 300);
 			}
-			console.log(results);
 		});
 	});
 	jQuery('body').delegate('[data-remove-epigraph-button="true"]', 'click', function()
@@ -56,6 +53,9 @@ jQuery(document).ready(function()
 	jQuery('#reset-add-epigraph').click(function()
 	{
 		jQuery('#epigraph-row-container').html('');
+		jQuery.post('/take_epigraph.html', {data:jQuery('#subject-select').val()}, function(data, status){
+			for(var i in data)jQuery('#epigraph-row-container').append(getTheepigraphListElementHtml(data[i].content));
+		});
 	});
 	jQuery('.subject-item-list').on('click', function()
 	{
@@ -79,10 +79,6 @@ jQuery(document).ready(function()
 	jQuery('[data-submit-make="true"]').click(function()
 	{
 		jQuery('#form-to-epigraphs').attr('action', jQuery(this).attr('data-url-form'));
-	});
-	jQuery('#deallocate-epigraphs-button').click(function()
-	{
-		
 	});
 	jQuery(window).on("resize",function()
 	{

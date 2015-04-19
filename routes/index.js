@@ -112,17 +112,16 @@ router.post('/remake_epigraphs_not_deallocate.html', function(req, res)
 			var aux = doc.filter(function(item) {
 				for(var i in req.body.epigraph)
 					if(req.body.epigraph[i] == item.content) return false;
-						return true;
+				return true;
 			});
 			for(var i in aux)
-				epigraphDB.find({id:aux[i]._id}).remove().exec();
-				
+				epigraphDB.find({_id:aux[i]._id}).remove().exec();
 			aux = req.body.epigraph.filter(function(item) 
 			{
 				for(var i in doc)
 					if(doc[i].content == item) return false;
-						return true;
-			});
+				return true;
+			});	
 			for(var i in aux)
 				(new epigraphDB({subject:req.body.subject, content:aux[i]})).save();
 		});
@@ -133,6 +132,7 @@ router.post('/remake_epigraphs_not_deallocate.html', function(req, res)
 
 router.post('/deallocate.html', function(req, res)
 {
+	console.log('deallocate-> subject: ' + req.body.subject);
 	if(req.session.user /*&& req.session.user.rol!="finalUser"*/ && req.body.subject)
 	{
 		epigraphDB.find({subject:req.body.subject},function(err, doc)
