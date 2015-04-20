@@ -1,7 +1,7 @@
 var mongoose	= require('mongoose');
 
-mongoose.connect('mongodb://localhost/vaportema', function(err, res) 
-//mongoose.connect('mongodb://heroku_app35925231:jk7mmcolav07u7d0ihcdpgadn3@ds061711.mongolab.com:61711/heroku_app35925231?replicaSet=rs-ds061711', function(err, res) 
+//mongoose.connect('mongodb://localhost/vaportema', function(err, res) 
+mongoose.connect('mongodb://heroku_app35925231:jk7mmcolav07u7d0ihcdpgadn3@ds061711.mongolab.com:61711/heroku_app35925231?replicaSet=rs-ds061711', function(err, res) 
 {
 	if(err) {console.log('ERROR: connecting to Database. ' + err);} 
 	else 	{console.log('Connected to Database');}

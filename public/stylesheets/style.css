@@ -33,6 +33,7 @@ a {
 	box-shadow: 10px 10px 21px 0px rgba(0,0,0,0.75);
 	border: 1px solid #eee;
 }
+.loggin-container{padding:3rem;}
 .epigraph-content{padding: 30px 20px 30px 20px;}
 .subjects-container{padding:0;padding-bottom:10px;}
 @media screen and (min-width: 992px)
